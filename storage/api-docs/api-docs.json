@@ -71,6 +71,24 @@
                             "type": "string",
                             "example": "2025-09-26 12:03:42"
                         }
+                    },
+                    {
+                        "name": "page",
+                        "in": "query",
+                        "description": "Current page",
+                        "required": false,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "per_page",
+                        "in": "query",
+                        "description": "Per page",
+                        "required": false,
+                        "schema": {
+                            "type": "integer"
+                        }
                     }
                 ],
                 "responses": {
@@ -105,13 +123,13 @@
                 }
             }
         },
-        "/api/filters": {
+        "/api/articles/filters/get": {
             "get": {
                 "tags": [
                     "Articles"
                 ],
                 "summary": "Get the filter option for Articles",
-                "operationId": "999719e65d464d15c39ce85d38b73e47",
+                "operationId": "6353492c117ba199e626f6a5eddf1203",
                 "responses": {
                     "200": {
                         "description": "Articles Filter"

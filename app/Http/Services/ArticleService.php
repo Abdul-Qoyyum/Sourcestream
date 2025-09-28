@@ -6,16 +6,15 @@ use App\Models\Category;
 use App\Models\Source;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
-use Illuminate\Pagination\LengthAwarePaginator;
 
 class ArticleService
 {
 
-    public static function index(Request $request): LengthAwarePaginator
+    public static function index(Request $request): array
     {        $query = Article::with(['source', 'category'])
         ->orderBy('published_at', 'desc');
 
-        // Search by keyword
+
         if ($request->has('search') && $request->search) {
             $searchTerm = $request->search;
             $query->where(function ($q) use ($searchTerm) {
@@ -25,14 +24,12 @@ class ArticleService
             });
         }
 
-        // Filter by category
         if ($request->has('category') && $request->category) {
             $query->whereHas('category', function ($q) use ($request) {
                 $q->where('slug', $request->category);
             });
         }
 
-        // Filter by sources
         if ($request->has('sources') && $request->sources) {
             $sources = explode(',', $request->sources);
             $query->whereHas('source', function ($q) use ($sources) {
@@ -48,7 +45,27 @@ class ArticleService
             $query->where('published_at', '<=', Carbon::parse($request->to_date)->endOfDay());
         }
 
-        return $query->paginate($request->get('per_page', 10));
+        $total = $query->count();
+
+        $page = max(1, (int) $request->get('page', 1));
+        $perPage = min(50, max(1, (int) $request->get('per_page', 10)));
+        $skip = ($page - 1) * $perPage;
+
+        $articles = $query->skip($skip)->take($perPage)->get();
+
+        $lastPage = ceil($total / $perPage);
+
+        return [
+            'articles' => $articles,
+            'meta' => [
+                'current_page' => $page,
+                'per_page' => $perPage,
+                'from' => $total > 0 ? $skip + 1 : 0,
+                'to' => $total > 0 ? min($skip + $perPage, $total) : 0,
+                'total' => $total,
+                'last_page' => $lastPage,
+            ]
+        ];
     }
 
     /**
@@ -66,14 +83,13 @@ class ArticleService
 
 
     /**
-     * @param Article $article
-     * @return Article[]
+     * @param $id
+     * @return Article|null
      */
-    public static function show(Article $article): array
+    public static function show($id):?Article
     {
-        $article->load(['source', 'category']);
-        return [
-            'data' => $article
-        ];
+        return Article::with(['source', 'category'])
+            ->where('id',$id)
+            ->first();
     }
 }

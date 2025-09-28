@@ -4,9 +4,11 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Http\Services\ArticleService;
+use App\Http\Traits\ApiResponseTrait;
 use App\Models\Article;
 use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
+use Symfony\Component\HttpFoundation\Response;
 
 /**
  * @OA\Info(
@@ -17,6 +19,7 @@ use Illuminate\Http\JsonResponse;
  */
 class ArticleController extends Controller
 {
+    use ApiResponseTrait;
 
     /**
      * @OA\Get(
@@ -62,6 +65,20 @@ class ArticleController extends Controller
      *           description="published_at end date",
      *           @OA\Schema(type="string", example="2025-09-26 12:03:42")
      *       ),
+     *       @OA\Parameter(
+     *          name="page",
+     *          in="query",
+     *          required=false,
+     *          description="Current page",
+     *          @OA\Schema(type="integer")
+     *      ),
+     *      @OA\Parameter(
+     *          name="per_page",
+     *          in="query",
+     *          required=false,
+     *          description="Per page",
+     *          @OA\Schema(type="integer")
+     *      ),
      *     @OA\Response(
      *         response=200,
      *         description="List of Articles"
@@ -71,7 +88,7 @@ class ArticleController extends Controller
     public function index(Request $request): JsonResponse
     {
         $response = ArticleService::index($request);
-        return response()->json($response);
+        return $this->successResponse($response);
     }
 
     /**
@@ -92,15 +109,20 @@ class ArticleController extends Controller
      *     )
      * )
      */
-    public function show(Article $article): JsonResponse
+    public function show($id): JsonResponse
     {
-        $response = ArticleService::show($article);
-        return response()->json($response);
+        $response = ArticleService::show($id);
+        if(!$response){
+            return $this->errorResponse('Article not found',
+                null,
+                Response::HTTP_NOT_FOUND);
+        }
+        return $this->successResponse($response);
     }
 
     /**
      * @OA\Get(
-     *     path="/api/filters",
+     *     path="/api/articles/filters/get",
      *     summary="Get the filter option for Articles",
      *     tags={"Articles"},
      *     @OA\Response(
@@ -112,7 +134,7 @@ class ArticleController extends Controller
     public function getFilters(): JsonResponse
     {
         $response = ArticleService::getFilters();
-        return response()->json($response);
+        return $this->successResponse($response);
     }
 
 
