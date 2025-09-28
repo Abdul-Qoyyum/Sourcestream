@@ -28,7 +28,7 @@ class ArticleController extends Controller
      *         in="query",
      *         required=false,
      *         description="search by title, summary or content",
-     *         @OA\Schema(type="string", example="podcast")
+     *         @OA\Schema(type="string", example="Game")
      *      ),
      *      @OA\Parameter(
      *          name="category",
@@ -38,7 +38,7 @@ class ArticleController extends Controller
      *          @OA\Schema(
      *             type="string",
      *             enum={"business", "entertainment", "general", "health", "science", "sports", "technology"},
-     *             example="business"
+     *             example="technology"
      *          )
      *      ),
      *      @OA\Parameter(
@@ -53,14 +53,14 @@ class ArticleController extends Controller
      *           in="query",
      *           required=false,
      *           description="published_at start date",
-     *           @OA\Schema(type="string", example="2024-01-01 10:00:00")
+     *           @OA\Schema(type="string", example="2025-09-26 07:28:50")
      *       ),
      *      @OA\Parameter(
      *           name="to_date",
      *           in="query",
      *           required=false,
      *           description="published_at end date",
-     *           @OA\Schema(type="string", example="2024-01-10 10:00:00")
+     *           @OA\Schema(type="string", example="2025-09-26 12:03:42")
      *       ),
      *     @OA\Response(
      *         response=200,

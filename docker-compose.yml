@@ -20,7 +20,16 @@ services:
             mysql:
                 condition: service_healthy
         command: >
-            sh -c "php artisan migrate --force && php-fpm"
+            sh -c "php artisan migrate --force &&
+                   php artisan db:seed --force &&
+                   php artisan articles:aggregate business &&
+                   php artisan articles:aggregate entertainment &&
+                   php artisan articles:aggregate general &&
+                   php artisan articles:aggregate health &&
+                   php artisan articles:aggregate science &&
+                   php artisan articles:aggregate sports &&
+                   php artisan articles:aggregate technology &&
+                   php-fpm"
         networks:
             - laravel
     nginx:

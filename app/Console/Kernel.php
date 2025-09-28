@@ -9,7 +9,25 @@ class Kernel extends ConsoleKernel
 {
     protected function schedule(Schedule $schedule): void
     {
-        $schedule->command('articles:aggregate')
+        $schedule->command('articles:aggregate business')
+            ->hourly()
+            ->withoutOverlapping();
+        $schedule->command('articles:aggregate entertainment')
+            ->hourly()
+            ->withoutOverlapping();
+        $schedule->command('articles:aggregate general')
+            ->hourly()
+            ->withoutOverlapping();
+        $schedule->command('articles:aggregate health')
+            ->hourly()
+            ->withoutOverlapping();
+        $schedule->command('articles:aggregate science')
+            ->hourly()
+            ->withoutOverlapping();
+        $schedule->command('articles:aggregate sports')
+            ->hourly()
+            ->withoutOverlapping();
+        $schedule->command('articles:aggregate technology')
             ->hourly()
             ->withoutOverlapping();
     }
