@@ -45,6 +45,7 @@ return [
         'key' => env('GUARDIAN_API_KEY'),
         'rate_limit' => 60,
         'base_url' => 'https://content.guardianapis.com/',
+        'api_key_param' => 'api-key',
     ],
 
     'nytimes' => [
