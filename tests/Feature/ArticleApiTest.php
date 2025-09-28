@@ -101,7 +101,7 @@ class ArticleApiTest extends TestCase
         Source::factory()->create(['is_active' => false]);
         Category::factory()->count(3)->create();
 
-        $response = $this->getJson('/api/filters');
+        $response = $this->getJson('/api/articles/filters/get');
 
         $response->assertStatus(200)
             ->assertJsonStructure([

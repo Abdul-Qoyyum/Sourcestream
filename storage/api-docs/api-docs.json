@@ -1,0 +1,129 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "SourceStream API",
+        "version": "1.0.0"
+    },
+    "paths": {
+        "/api/articles": {
+            "get": {
+                "tags": [
+                    "Articles"
+                ],
+                "summary": "Get list of articles",
+                "operationId": "93ded9e31119e6bbb22455c72ef97f19",
+                "parameters": [
+                    {
+                        "name": "search",
+                        "in": "query",
+                        "description": "search by title, summary or content",
+                        "required": false,
+                        "schema": {
+                            "type": "string",
+                            "example": "podcast"
+                        }
+                    },
+                    {
+                        "name": "category",
+                        "in": "query",
+                        "description": "search by category",
+                        "required": false,
+                        "schema": {
+                            "type": "string",
+                            "enum": [
+                                "business",
+                                "entertainment",
+                                "general",
+                                "health",
+                                "science",
+                                "sports",
+                                "technology"
+                            ],
+                            "example": "business"
+                        }
+                    },
+                    {
+                        "name": "source",
+                        "in": "query",
+                        "description": "search by source",
+                        "required": false,
+                        "schema": {
+                            "type": "string",
+                            "example": "newsapi,guardian,nytimes"
+                        }
+                    },
+                    {
+                        "name": "from_date",
+                        "in": "query",
+                        "description": "published_at start date",
+                        "required": false,
+                        "schema": {
+                            "type": "string",
+                            "example": "2024-01-01 10:00:00"
+                        }
+                    },
+                    {
+                        "name": "to_date",
+                        "in": "query",
+                        "description": "published_at end date",
+                        "required": false,
+                        "schema": {
+                            "type": "string",
+                            "example": "2024-01-10 10:00:00"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "List of Articles"
+                    }
+                }
+            }
+        },
+        "/api/articles/{article}": {
+            "get": {
+                "tags": [
+                    "Articles"
+                ],
+                "summary": "Get an Article by ID",
+                "operationId": "be7af7750efdb2560ecfae862b170bf4",
+                "parameters": [
+                    {
+                        "name": "article",
+                        "in": "path",
+                        "description": "Article ID",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Article Data"
+                    }
+                }
+            }
+        },
+        "/api/filters": {
+            "get": {
+                "tags": [
+                    "Articles"
+                ],
+                "summary": "Get the filter option for Articles",
+                "operationId": "999719e65d464d15c39ce85d38b73e47",
+                "responses": {
+                    "200": {
+                        "description": "Articles Filter"
+                    }
+                }
+            }
+        }
+    },
+    "tags": [
+        {
+            "name": "Articles",
+            "description": "Articles"
+        }
+    ]
+}
