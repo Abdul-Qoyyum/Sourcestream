@@ -28,7 +28,3 @@ Schedule::command('articles:aggregate sports')
 Schedule::command('articles:aggregate technology')
     ->hourly()
     ->withoutOverlapping();
-
-Schedule::command('articles:aggregate technology')
-    ->everyFiveMinutes()
-    ->withoutOverlapping();
