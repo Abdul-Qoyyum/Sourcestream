@@ -20,7 +20,7 @@ return new class extends Migration
             $table->text('summary')->nullable();
             $table->text('content')->nullable();
             $table->string('url');
-            $table->string('image_url')->nullable();
+            $table->text('image_url')->nullable();
             $table->string('author')->nullable();
             $table->timestamp('published_at');
             $table->json('source_metadata')->nullable();
@@ -29,6 +29,7 @@ return new class extends Migration
             $table->index(['source_id', 'external_id']);
             $table->index('published_at');
             $table->index(['source_id', 'published_at']);
+            $table->index(['author']);
         });
     }
 
