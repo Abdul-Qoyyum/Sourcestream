@@ -1,8 +1,34 @@
 <?php
+use Illuminate\Support\Facades\Schedule;
 
-use Illuminate\Foundation\Inspiring;
-use Illuminate\Support\Facades\Artisan;
+Schedule::command('articles:aggregate business')
+    ->hourly()
+    ->withoutOverlapping();
 
-Artisan::command('inspire', function () {
-    $this->comment(Inspiring::quote());
-})->purpose('Display an inspiring quote');
+Schedule::command('articles:aggregate entertainment')
+    ->hourly()
+    ->withoutOverlapping();
+
+Schedule::command('articles:aggregate general')
+    ->hourly()
+    ->withoutOverlapping();
+
+Schedule::command('articles:aggregate health')
+    ->hourly()
+    ->withoutOverlapping();
+
+Schedule::command('articles:aggregate science')
+    ->hourly()
+    ->withoutOverlapping();
+
+Schedule::command('articles:aggregate sports')
+    ->hourly()
+    ->withoutOverlapping();
+
+Schedule::command('articles:aggregate technology')
+    ->hourly()
+    ->withoutOverlapping();
+
+Schedule::command('articles:aggregate technology')
+    ->everyFiveMinutes()
+    ->withoutOverlapping();

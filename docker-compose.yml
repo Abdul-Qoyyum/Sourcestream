@@ -74,6 +74,7 @@ services:
         restart: unless-stopped
         volumes:
             - .:/var/www/html
+            -  /var/www/html/vendor
         command: >
             sh -c "while true; do php artisan schedule:run --verbose --no-interaction & sleep 60; done"
         depends_on:
