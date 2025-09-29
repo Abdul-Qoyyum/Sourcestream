@@ -30,7 +30,7 @@ class ArticleController extends Controller
      *         name="search",
      *         in="query",
      *         required=false,
-     *         description="search by title, summary or content",
+     *         description="search by title, summary, content or author",
      *         @OA\Schema(type="string", example="Game")
      *      ),
      *      @OA\Parameter(

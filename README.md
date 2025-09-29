@@ -59,7 +59,7 @@ Follow the steps below to set up the application locally:
 
 ## 📂 Project Structure
 ```angular2html
-    SourceStream/
+    Sourcestream/
     ├── app/
     │   ├── Console/
     │   │   ├── Commands/
@@ -91,7 +91,7 @@ Follow the steps below to set up the application locally:
 ```
 
 ## 🛠️ Technologies Used
-- Php
+- Php (Laravel)
 - Docker
 - Nginx
 - MySQL

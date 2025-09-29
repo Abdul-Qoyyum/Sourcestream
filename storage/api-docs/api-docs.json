@@ -16,7 +16,7 @@
                     {
                         "name": "search",
                         "in": "query",
-                        "description": "search by title, summary or content",
+                        "description": "search by title, summary, content or author",
                         "required": false,
                         "schema": {
                             "type": "string",

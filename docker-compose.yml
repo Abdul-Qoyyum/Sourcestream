@@ -8,6 +8,7 @@ services:
         working_dir: /var/www/html
         volumes:
             - .:/var/www/html
+            - /var/www/html/vendor
         env_file:
             - .env
         healthcheck:

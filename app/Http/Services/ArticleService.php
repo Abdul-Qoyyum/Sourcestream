@@ -20,7 +20,8 @@ class ArticleService
             $query->where(function ($q) use ($searchTerm) {
                 $q->where('title', 'like', "%{$searchTerm}%")
                     ->orWhere('summary', 'like', "%{$searchTerm}%")
-                    ->orWhere('content', 'like', "%{$searchTerm}%");
+                    ->orWhere('content', 'like', "%{$searchTerm}%")
+                    ->orWhere('author', 'like', "%{$searchTerm}%");
             });
         }
 

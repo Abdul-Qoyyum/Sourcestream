@@ -22,8 +22,17 @@ RUN apt-get update && apt-get install -y \
 # Install Composer
 COPY --from=composer:2.7 /usr/bin/composer /usr/bin/composer
 
-# Copy app files
+# Copy only composer files first
+COPY composer.json composer.lock ./
+
+# Install dependencies (cached layer)
+RUN composer install --optimize-autoloader --no-interaction --prefer-dist --no-scripts
+
+# Copy the rest of the app (artisan etc.)
 COPY . .
+
+# Run composer scripts now that artisan exists
+RUN composer run-script post-autoload-dump || true
 
 # Set permissions (adjust for your system)
 RUN chown -R www-data:www-data /var/www/html \
